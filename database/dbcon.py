@@ -1,6 +1,7 @@
 import mysql.connector
 
 from mysql.connector import errorcode
+
 class Connection:
     def function(self):
         self.cnx=None
@@ -14,6 +15,4 @@ class Connection:
                 return None
             else:
                 print(err)
-        else:
-            print('Done!!!!')
         return self.cnx

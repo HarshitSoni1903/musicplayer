@@ -10,16 +10,7 @@ class addusermood:
 
     def insertToUserMood(self,userid,period,fear,disgust,anger,neutral,happiness,sad,surprise):
         try:
-            print(2)
             self.Table_name = "usermood"
-            print(self.Table_name)
-            print (fear)
-            print(disgust)
-            print(anger)
-            print(neutral)
-            print(happiness)
-            print(sad)
-            print(surprise)
             self.cursorcnx.execute("insert into usermood (userid,period,fear,disgust,anger,neutral,happiness,sad,surprise) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(userid,period,fear,disgust,anger,neutral,happiness,sad,surprise))
             self.cursorcnx._connection.commit()
             return 1
@@ -33,5 +24,25 @@ class addusermood:
             for row in self.rows:
                 self.datalists.append(row)
             return self.datalists
+        except mysql.connector.Error as err:
+            print err.msg
+
+    def getUserMood(self,userid,period):
+        try:
+            self.cursorcnx.execute("select fear, disgust, anger, neutral, happiness, sad, surprise from usermood where userid = %s and period = %s",(userid,period))
+            if self.cursorcnx.rowcount<=14:
+                self.rows = self.cursorcnx.fetchall()
+                #self.user = []
+                #print self.rows[-1]
+                return 0,self.rows[-1]
+            else:
+                #for row in self.rows:
+                    #print row
+                self.rows = self.cursorcnx.fetchall()
+                self.user = []
+                for row in self.rows:
+                    self.user.append(row)
+                return 1,self.user
+
         except mysql.connector.Error as err:
             print err.msg

@@ -54,11 +54,11 @@ class screens:
         self.framei.pack()
         self.button1 = Button(self.framei, text="Play my own Music", command=self.ownmusic)
         self.button2 = Button(self.framei, text="Use camera", command=self.camera1)
-        self.button3 = Button(self.framei, text="Ask me questions", command=self.questions)
+        #self.button3 = Button(self.framei, text="Ask me questions", command=self.questions)
         self.text1 = Label(self.framei, text = "This is the very first player to play music online and it uses mood based sentiment analysis")
         self.text2 = Label(self.framei, text = "How would you like to listen to music??")
         self.text3 = Label(self.framei, text = "Can we use camera to select best fit music for you??")
-        self.text4 = Label(self.framei, text = "Not in Mood of a picture? We can ask you questions!")
+        #self.text4 = Label(self.framei, text = "Not in Mood of a picture? We can ask you questions!")
         self.text5 = Label(self.framei, text = "Have your own Music? No worries, we can play it too!")
         self.text1.grid(row=0, columnspan=4, pady=5)
         self.text2.grid(row=2, columnspan=4, pady=5)
@@ -81,7 +81,7 @@ class screens:
         print("added to db")
         self.onlinescreen(self.master)
 
-    #user chooses to answer questions
+    """#user chooses to answer questions
     def questions(self):
 
         self.framei.destroy()
@@ -134,7 +134,7 @@ class screens:
         self.q3b1.grid(row=5, column=0, padx=5)
         self.q3b2.grid(row=5, column=1, padx=5)
         self.q3b3.grid(row=5, column=2, padx=5)
-        self.q3b4.grid(row=5, column=3, padx=5)
+        self.q3b4.grid(row=5, column=3, padx=5)"""
 
     #screen for playing music online
 
@@ -150,14 +150,17 @@ class screens:
         self.button4 = Button(self.framei, text="Resume", command=onlinecontrol.resume)
         self.button5 = Button(self.framei, text="Next", command=onlinecontrol.nextsong)
         self.button6 = Button(self.framei, text="Previous", padx=20, pady=20, command=onlinecontrol.previous)
-        self.button7 = Button(self.framei, text="Browse", command=onlinecontrol.getlist)
+        #self.button7 = Button(self.framei, text="Browse", command=onlinecontrol.getlist)
         self.button8 = Button(self.framei, text="Shuffle & Play", command=onlinecontrol.shuffleandplay)
         #self.button9 = Button(self.framei, text="Play Selected Song", command=onlinecontrol.playselected)
+
         global artist,songname, album, genre
+
         """artist = StringVar()
         songname = StringVar()
         album = StringVar()
         genre = StringVar()"""
+
         dicti = onlinecontrol.getmeta()
         artist = dicti['artist']
         album = dicti['album']
@@ -174,7 +177,7 @@ class screens:
         self.button4.grid(row=0, column=3)
         self.button5.grid(row=0, column=4)
         self.button6.grid(row=0, column=5)
-        self.button7.grid(row=2, column=3)
+        #self.button7.grid(row=2, column=3)
         self.button8.grid(row=2, column=0)
         #self.button9.grid(row=2, column=5)
         self.artistlabel.grid(row=3)
@@ -186,18 +189,22 @@ class screens:
         #print(onlinecontrol.artist)
         master.update_idletasks()
     #screen for playing music offline
+
     def changevalue(self):
         print "inside changevalue"
+
         """global artist,songname, album, genre
         artist.set(onlinecontrol.artist)
         album.set(onlinecontrol.album)
         genre.set(onlinecontrol.genre)
         songname.set(onlinecontrol.songname)
         print onlinecontrol.artist"""
+
         self.framei.update()
         root.update_idletasks()
 
     def offlinescreen(self,master):
+
         self.framei = Frame(master)
         self.framei["bg"] = "light sky blue"
         self.framei.pack()
@@ -225,6 +232,10 @@ class screens:
         self.path = self.path+ '/'
         offlinecontrol.getlist(self.path)
 
+    def browseandgetmusic(self):
+        self.path = tkFileDialog.askopenfilename(title="Select Mp3 File to be Played")
+        offlinecontrol.getlist(self.path)
+
 def doSomething():
     # check if saving
     try:
@@ -237,7 +248,9 @@ def doSomething():
         pass
     finally:
         root.destroy()
+
 if __name__=='__main__':
+
     root = Tk()
     musicapp = screens(root)
     root.title("music player")
@@ -245,4 +258,5 @@ if __name__=='__main__':
     root.geometry("640x340")
     root.protocol('WM_DELETE_WINDOW', doSomething)  # root is your root window
     root.mainloop()
-    print 1
+
+    #print 1

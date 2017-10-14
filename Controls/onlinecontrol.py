@@ -1,7 +1,8 @@
 import pygame
-import threading,random, requests, time
+import random, requests, time
 import moodmusic
-from Tkinter import *
+#from Tkinter import *
+from threading import Thread
 from database import getmusiclist
 global pausedtag
 
@@ -40,36 +41,20 @@ genre = None
 songname = None
 
 def getmeta():
+    global metadata
+    return metadata
 
-    global artist, songname, album, genre,index
-    print("inside getmeta")
 
-    """artist = metadata[index][1]
-    songname = metadata[index][0]
-    album = metadata[index][3]
-    genre = metadata[index][2]
-    artist = StringVar()
-    songname = StringVar()
-    album = StringVar()
-    genre = StringVar()
-    artist.set(metadata[index][1])
-    album.set(metadata[index][3])
-    genre.set(metadata[index][2])
-    songname.set(metadata[index][0])
-    print artist"""
-
-    metadict = {'artist': metadata[index][1],'songname' : metadata[index][0],'album' : metadata[index][3],'genre' : metadata[index][2]}
-
-    return metadict
-class newthread(threading.Thread):
+class newthread(Thread):
     def __init__(self):
-        threading.Thread.__init__(self)
+        Thread.__init__(self)
         #self.threadname=name
+    def setob(self,ob):
+        self.ob=ob
     def run(self):
-        playmusic()
+        playmusic(self.ob)
 
-
-def playmusic():
+def playmusic(ob):
     if files==None:
         getlist()
     global stoptag,previoustag,pausedtag,nexttag,index
@@ -86,10 +71,10 @@ def playmusic():
 
     r = requests.get(files[index], stream=True)
     getmeta()
-    pygame.mixer.music.load(r.raw)
     time.sleep(2)
+    pygame.mixer.music.load(r.raw)
     pygame.mixer.music.play()
-
+    ob.updateval(index)
     print(pygame.mixer.music.get_volume())
 
     # pygame.mixer.music.set_pos(190)
@@ -97,34 +82,37 @@ def playmusic():
     print pygame.mixer.music.get_pos()
 
     while True:
-
         if pausedtag == 1:
             continue
-
         if stoptag == 1:
             if nexttag == 1:
-                print "it should go next"
-                stoptag = 0
-                nexttag = 0
-                index = index + 1
-                pygame.mixer.music.stop()
-                pygame.mixer.music.load(files[index])
-                print(files[index])
-                print 'im here'
-                time.sleep(2)
-                pygame.mixer.music.play()
-                continue
+                if(index<len(files)-1):
+                    print "it should go next"
+                    stoptag = 0
+                    nexttag = 0
+                    index = index + 1
+                    pygame.mixer.music.stop()
+                    r = requests.get(files[index], stream=True)
+                    time.sleep(2)
+                    pygame.mixer.music.load(r.raw)
+                    pygame.mixer.music.play()
+                    ob.updateval(index)
+                    continue
+                else:
+                    continue
             elif(previoustag == 1):
                 if(index>0):
                     print "it should go back"
                     index = index-1
-                    pygame.mixer.music.load(files[index])
-                    print(files[index])
+                    r = requests.get(files[index], stream=True)
                     time.sleep(2)
+                    pygame.mixer.music.load(r.raw)
                     pygame.mixer.music.play()
                     stoptag = 0
                     previoustag = 0
+                    ob.updateval(index)
                     continue
+
                 else:
                     print "it should rewind"
                     pygame.mixer.music.rewind()
@@ -133,6 +121,7 @@ def playmusic():
                     pygame.mixer.music.play()
                     stoptag = 0
                     previoustag = 0
+                    ob.updateval(index)
                     continue
             else:
                 pygame.mixer.music.stop()
@@ -147,13 +136,17 @@ def playmusic():
                     print "it should play next"
                     index = index + 1
                     r = requests.get(files[index], stream=True)
+                    time.sleep(2)
                     pygame.mixer.music.load(r.raw)
                     getmeta()
                     print(files[index])
-                    time.sleep(2)
                     pygame.mixer.music.play()
+                    ob.updateval(index)
                 print "song ends event"
 
+def getindex():
+    global index
+    return index
 
 def getlist():
 
@@ -172,7 +165,7 @@ def getlist():
     print files
     print metadata
 
-def play():
+def play(screenob):
     global stoptag, previoustag, pausedtag, nexttag, index
     stoptag = 0
     previoustag = 0
@@ -181,7 +174,9 @@ def play():
     print index
     print files
     ob1 = newthread()
+    ob1.setob(screenob)
     ob1.start()
+
 
 def pause():
     pygame.mixer.music.pause()

@@ -36,6 +36,7 @@ def connectandget(filename):
     #header
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_data(http_body)
+
     try:
         #post data to server
         if(json.load(urllib2.urlopen(req, timeout=10))['faces']):
@@ -47,6 +48,7 @@ def connectandget(filename):
         print '1'
         #print resp
         return resp
+
     except urllib2.HTTPError as e:
         print e.read()
         return e

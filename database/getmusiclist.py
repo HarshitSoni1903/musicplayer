@@ -25,3 +25,4 @@ class getmusiclist:
 if __name__=="__main__":
     obj=getmusiclist("sadtable")
     obj.getlist()
+
