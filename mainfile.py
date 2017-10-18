@@ -5,6 +5,195 @@ from socket import gethostname
 from database import adduser
 from os import _exit
 
+if 33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333....:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class screens:
 
@@ -16,14 +205,10 @@ class screens:
             self.userfound = self.userob.atstart()
 
             if (self.userfound == 0):
-                print("not exists")
                 ob = firstscreen.firstscreen(master)
 
             elif(self.userfound == 1):
-                print("exists")
-                print self.userfound
                 ob = secondscreen.secondscreen(master)
-
             #else:print self.userfound
 
         else:

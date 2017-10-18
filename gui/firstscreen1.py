@@ -7,13 +7,13 @@ class firstscreen:
     def __init__(self, master):
         self.master = master
         self.framei = Frame(master)
-        self.framei["bg"] = "navy blue"
+        # framei["bg"] = "light sky blue"
         self.framei.pack()
-        self.name = Label(self.framei, text="Please Enter Your Name", font=("Helvetica",14),bg="navy blue", fg="white")
+        self.name = Label(self.framei, text="Please Enter Your Name")
         self.namevar = StringVar()
         self.entry = Entry(self.framei, textvariable=self.namevar)
         self.namevar.set("")
-        self.namebutton = Button(self.framei, text="Submit", command=self.addname,font=("Helvetica",14),bg="powder blue")
+        self.namebutton = Button(self.framei, text="Submit", command=self.addname)
         self.name.grid(row=0, pady=15)
         self.entry.grid(row=1, pady=15)
         self.namebutton.grid(row=2)
@@ -26,15 +26,3 @@ class firstscreen:
         print("hello "+self.username+" "+self.userid)
         self.userob.insertToUserData(self.userid,self.username)
         ob = secondscreen.secondscreen(self.master)
-
-if __name__=="__main__":
-    root = Tk()
-    ob = firstscreen(root)
-    root.title("MUSIC RECOMMENDATION SYSTEM")
-    # make_label(framei, img)
-    root.iconbitmap(default="C:/Users/Harshit Soni/Desktop/python/music/icons/music.ico")
-    root.configure(background="navy blue")
-    root.geometry("320x260")
-    root.mainloop()
-
-

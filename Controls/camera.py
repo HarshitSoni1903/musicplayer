@@ -21,5 +21,4 @@ class camera:
         self.file = filename
 
         imwrite(self.file, self.camera_capture)
-
         del (self.camera)

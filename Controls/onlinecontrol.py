@@ -75,11 +75,9 @@ def playmusic(ob):
     pygame.mixer.music.load(r.raw)
     pygame.mixer.music.play()
     ob.updateval(index)
-    print(pygame.mixer.music.get_volume())
 
     # pygame.mixer.music.set_pos(190)
 
-    print pygame.mixer.music.get_pos()
 
     while True:
         if pausedtag == 1:
@@ -87,7 +85,6 @@ def playmusic(ob):
         if stoptag == 1:
             if nexttag == 1:
                 if(index<len(files)-1):
-                    print "it should go next"
                     stoptag = 0
                     nexttag = 0
                     index = index + 1
@@ -102,7 +99,6 @@ def playmusic(ob):
                     continue
             elif(previoustag == 1):
                 if(index>0):
-                    print "it should go back"
                     index = index-1
                     r = requests.get(files[index], stream=True)
                     time.sleep(2)
@@ -114,9 +110,7 @@ def playmusic(ob):
                     continue
 
                 else:
-                    print "it should rewind"
                     pygame.mixer.music.rewind()
-                    print(files[index])
                     time.sleep(2)
                     pygame.mixer.music.play()
                     stoptag = 0
@@ -125,24 +119,19 @@ def playmusic(ob):
                     continue
             else:
                 pygame.mixer.music.stop()
-                print "it should stop"
-                print "song ended"
-                print(index)
                 exit(False)
 
         for event in pygame.event.get():
             if event.type == end:
                 if index<(len(files)-1):
-                    print "it should play next"
+
                     index = index + 1
                     r = requests.get(files[index], stream=True)
                     time.sleep(2)
                     pygame.mixer.music.load(r.raw)
                     getmeta()
-                    print(files[index])
                     pygame.mixer.music.play()
                     ob.updateval(index)
-                print "song ends event"
 
 def getindex():
     global index
@@ -162,8 +151,6 @@ def getlist():
         files.append(link[0])
         metadata.append(link[1:])
     getmeta()
-    print files
-    print metadata
 
 def play(screenob):
     global stoptag, previoustag, pausedtag, nexttag, index
@@ -171,8 +158,6 @@ def play(screenob):
     previoustag = 0
     pausedtag = 0
     nexttag = 0
-    print index
-    print files
     ob1 = newthread()
     ob1.setob(screenob)
     ob1.start()

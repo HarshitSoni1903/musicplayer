@@ -13,8 +13,11 @@ def checkdb():
         if (mooddata.index(max(mooddata))!=3):
             return mooddata.index(max(mooddata))
         else:
-            mooddata[3]=0
-            return mooddata.index(max(mooddata))
+            listi1=[]
+            for i in mooddata:
+                listi1.append(i)
+            listi1[3]=0
+            return listi1.index(max(listi1))
     elif check == 1:
         #dosomemath()
         mp = probability(mooddata)

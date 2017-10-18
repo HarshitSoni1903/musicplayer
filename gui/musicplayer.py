@@ -33,10 +33,10 @@ class Player(wx.Frame):
         ctrlpanel = wx.Panel(self, -1 )
         self.timeslider = wx.Slider(ctrlpanel, -1, 0, 0, 1000)
         self.timeslider.SetRange(0, 1000)
-        pause  = wx.Button(ctrlpanel, label="Pause")
-        play   = wx.Button(ctrlpanel, label="Play")
-        stop   = wx.Button(ctrlpanel, label="Stop")
-        volume = wx.Button(ctrlpanel, label="Volume")
+        pause  = wx.Button(ctrlpanel, label="Pause",font=("Helvetica",14),bg="powder blue")
+        play   = wx.Button(ctrlpanel, label="Play",font=("Helvetica",14),bg="powder blue")
+        stop   = wx.Button(ctrlpanel, label="Stop",font=("Helvetica",14),bg="powder blue")
+        volume = wx.Button(ctrlpanel, label="Volume",font=("Helvetica",14),bg="powder blue")
         self.volslider = wx.Slider(ctrlpanel, -1, 0, 0, 100, size=(100, -1))
 
         # Bind controls to events
