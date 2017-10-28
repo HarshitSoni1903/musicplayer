@@ -44,7 +44,7 @@ if __name__=='__main__':
 
     root = Tk()
     musicapp = screens(root)
-    root.title("music player")
+    root.title("Music Player")
     root.geometry("640x340")
     root.protocol('WM_DELETE_WINDOW', doSomething)
     root.mainloop()
